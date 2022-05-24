@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -34,7 +33,6 @@ public class Conexao {
     public static String tratamentoMensagem (byte[] infoBytes){
         String mensagem = new String(infoBytes);
         StringBuilder builder = new StringBuilder();
-
         for (int i = 0; i < mensagem.length(); i++) {
             if (mensagem.charAt(i) == 0) {
                 break;

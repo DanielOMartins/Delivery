@@ -1,5 +1,3 @@
-
-
 import java.text.DecimalFormat;
 
 public class Alimento {
@@ -27,5 +25,7 @@ public class Alimento {
         return this.id + " - " + this.nome + ": R$" + df.format(this.preco);
     }
 
-
+    public double getPreco() {
+        return this.preco;
+    }
 }

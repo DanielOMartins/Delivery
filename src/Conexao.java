@@ -21,15 +21,6 @@ public class Conexao {
         out.write(textoRequisicao.getBytes());
     }
 
-    public static void enviar(Socket socket, Cardapio cardapio) throws IOException{
-        OutputStream out = socket.getOutputStream();
-        StringBuilder opcoesCardapio = new StringBuilder();
-        for (Alimento alimento : cardapio.getAlimentos()) {
-            opcoesCardapio.append("\n" + alimento.getAlimento());
-        }
-        out.write(opcoesCardapio.toString().getBytes());
-    }
-
     public static String tratamentoMensagem (byte[] infoBytes){
         String mensagem = new String(infoBytes);
         StringBuilder builder = new StringBuilder();

@@ -7,7 +7,7 @@ public class Alimento {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    Alimento(int id, String nome, double preco){
+    public Alimento(int id, String nome, double preco){
         this.nome = nome;
         this.id = id;
         this.preco = preco;

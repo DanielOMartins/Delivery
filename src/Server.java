@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Server {
     Socket socketClient;
@@ -32,13 +30,13 @@ public class Server {
         String menu = "\n1- Cardapio\n" +
                 "2- Adicionar ao Carrinho (1-3-7)\n" +
                 "3- Exibir carrinho de compra\n" +
-                "4- Realizar pedido\n" +
-                "4- Retirar pedido\n" +
-                "Sempre que quiser voltar ao menu digite 'voltar'";
-        boolean teste = true;
-        int count = 0;
-        int tempRealizaPedido = 0;
-        String [] pedidos = new String[10];
+                "4- Excluir item do carrinho\n" +
+                "5- Finalizar pedido\n" +
+                "\nPara voltar no menu, digite 'menu'";
+        String [] itens = new String[10];
+        boolean realizandoPedido = false;
+        boolean primeiraInteracao = true;
+        boolean excluindoItem = false;
         Cardapio cardapio = new Cardapio();
         Carrinho carrinho = new Carrinho();
 
@@ -47,34 +45,42 @@ public class Server {
 
         while(connect()) {
             textoRecebido = Conexao.receber(socketClient);
+            textoRecebido = textoRecebido.toLowerCase();
             System.out.println("Cliente enviou: " + textoRecebido);
 
-            if(0 == count || textoRecebido.equals("voltar")) {
-                count = 1;
+            if( textoRecebido.equals("menu") || textoRecebido.equals("n") || primeiraInteracao) {
+                primeiraInteracao = false;
                 Conexao.enviar(socketClient, menu);
             }
 
-            if (textoRecebido.equals("1")){
-                Conexao.enviar(socketClient, cardapio);
+            if (textoRecebido.equals("1") && !realizandoPedido && !excluindoItem) {
+                Conexao.enviar(socketClient, cardapio.getCardapio(cardapio));
             }
 
-            if(textoRecebido.equals("2") || tempRealizaPedido == 2){
-                //TODO verificar se o id do pedido está no cardapio, se não retorna mensagem ao cliente
-                if(tempRealizaPedido == 2) {
-                    pedidos = textoRecebido.split("-");
-                    carrinho.adicionaAlimento(pedidos, cardapio);
-                    Conexao.enviar(socketClient, "Pedido adicionado ao carrinho com sucesso");
-                    tempRealizaPedido = 1;
-                }
-
-                if(textoRecebido.equals("2")) {
+            if(textoRecebido.equals("2") || realizandoPedido || textoRecebido.equals("s")){
+                if(realizandoPedido) {
+                    itens = textoRecebido.split("-");
+                    Conexao.enviar(socketClient, carrinho.adicionaAlimento(itens, cardapio));
+                    realizandoPedido = false;
+                }else{
                     Conexao.enviar(socketClient, "O pedido deve ser feito dessa forma: 1-2-3");
-                    tempRealizaPedido = 2;
+                    realizandoPedido = true;
                 }
             }
 
-            if(textoRecebido.equals("3")){
+            if(textoRecebido.equals("3") && !realizandoPedido){
                 Conexao.enviar(socketClient, carrinho.getCarrinho());
+            }
+            
+            if(textoRecebido.equals("4") && !realizandoPedido || excluindoItem){
+                if(excluindoItem){
+                    itens = textoRecebido.split("-");
+                    Conexao.enviar(socketClient, carrinho.excluirItens(itens, carrinho));
+                    excluindoItem = false;
+                }else{
+                    Conexao.enviar(socketClient, "Remover um item deve ser dessa forma: 1-2-3");
+                    excluindoItem = true;
+                }
             }
 
             socketClient.close();

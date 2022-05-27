@@ -5,10 +5,11 @@ public class Client {
     Socket socket;
 
     public void comunicarComServidor() throws Exception {
-        boolean teste = true;
+        String textoRequisicao = "";
+        String textoRecebido = "";
+        boolean pedidoFinalizado = false;
+
         do {
-            String textoRequisicao = "Conexao estabelecida";
-            String textoRecebido = "";
             socket = new Socket("localhost", 9600);
 
             Scanner input = new Scanner(System.in);
@@ -23,9 +24,11 @@ public class Client {
 
             System.out.println("Restaurante enviou: " + textoRecebido);
 
-            if ("testeq".equals(textoRecebido))
-                teste = false;
-        }while(teste);
+            if(textoRecebido.equals("Pedido finalizado")){
+                pedidoFinalizado = true;
+            }
+
+        }while(!pedidoFinalizado);
     }
 
 

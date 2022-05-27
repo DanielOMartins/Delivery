@@ -22,7 +22,12 @@ public class Cardapio {
         return this.alimentos;
     }
 
-    public void getCardapio(){
-        this.alimentos.forEach(System.out::println);
+    public String getCardapio(Cardapio cardapio){
+        StringBuilder opcoesCardapio = new StringBuilder();
+        for (Alimento alimento : cardapio.getAlimentos()) {
+            opcoesCardapio.append("\n" + alimento.getAlimento());
+        }
+        opcoesCardapio.append("\nGostaria de realizar seu pedido agora? s ou n");
+        return opcoesCardapio.toString();
     }
 }

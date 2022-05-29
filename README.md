@@ -18,9 +18,8 @@ patrick.o.reis@gmail.com
 - Daniel de Oliveira Martins -
 danielomartins.16@gmail.com
 
-#How to use
+#Como usar
 
-###Como executar
 - Abra 2 terminais diferentes
 - Em um dos terminais mudar para a pasta "src" e executar o comando "javac *.java" para compilar os arquivos java
 ![alt text](https://github.com/DanielOMartins/Delivery/blob/main/img/Compilar.png)

@@ -12,7 +12,7 @@ public class Conexao {
         if (bytesLidos > 0) {
             return tratamentoMensagem(infoBytes);
         } else {
-            return "Mensagem vazia";
+            return "Mensagem não identificada";
         }
     }
 

@@ -22,9 +22,9 @@ public class Cardapio {
         return this.alimentos;
     }
 
-    public String getCardapio(Cardapio cardapio){
+    public String getCardapio(){
         StringBuilder opcoesCardapio = new StringBuilder();
-        for (Alimento alimento : cardapio.getAlimentos()) {
+        for (Alimento alimento : alimentos) {
             opcoesCardapio.append("\n" + alimento.getAlimento());
         }
         opcoesCardapio.append("\nGostaria de realizar seu pedido agora? s ou n");

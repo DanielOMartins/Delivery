@@ -21,11 +21,11 @@ public class Alimento {
         return this.id;
     }
 
-    public String getAlimento() {
-        return this.id + " - " + this.nome + ": R$" + df.format(this.preco);
-    }
-
     public double getPreco() {
         return this.preco;
+    }
+
+    public String getAlimento() {
+        return this.id + " - " + this.nome + ": R$" + df.format(this.preco);
     }
 }

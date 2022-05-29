@@ -19,11 +19,12 @@ public class Carrinho {
         return str.toString();
     }
 
-    public List<Alimento> listaDoCarrinho() {
-        return this.carrinho;
+    public void excluiCarrinho(){
+        carrinho.removeAll(carrinho);
+        totalCarrinho = 0;
     }
 
-    public String adicionaAlimento(String[] itens, Cardapio cardapio){
+    public String adicionaItens(String[] itens, Cardapio cardapio){
         int id;
         boolean existeNoCardapio;
         for (String s: itens) {
@@ -43,18 +44,18 @@ public class Carrinho {
         return "Pedido adicionado ao carrinho com sucesso";
     }
 
-    public String excluirItens(String[] itens, Carrinho carrinho) {
+    public String excluirItens(String[] itens) {
         int id;
         boolean existeNoCarrinho;
         Iterator<Alimento> it;
         for (String s: itens) {
             id = Integer.parseInt(s);
             existeNoCarrinho = false;
-            for (it = carrinho.listaDoCarrinho().iterator(); it.hasNext();) {
+            for (it = carrinho.iterator(); it.hasNext();) {
                 Alimento alimento = it.next();
                 if(alimento.getId() == id){
                     it.remove();
-                    totalCarrinho -= alimento.getPreco();
+                    this.totalCarrinho -= alimento.getPreco();
                     existeNoCarrinho = true;
                 }
             }
@@ -64,5 +65,4 @@ public class Carrinho {
         }
         return "Item(s) removido com sucesso.";
     }
-    
 }

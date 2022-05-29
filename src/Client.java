@@ -24,10 +24,8 @@ public class Client {
 
             System.out.println("Restaurante enviou: " + textoRecebido);
 
-            if(textoRecebido.equals("Pedido finalizado")){
+            if(textoRecebido.equals("Pedido finalizado e pronto para ser retirado!"))
                 pedidoFinalizado = true;
-            }
-
         }while(!pedidoFinalizado);
     }
 

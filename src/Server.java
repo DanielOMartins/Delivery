@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
 public class Server {
     Socket socketClient;
@@ -37,6 +38,7 @@ public class Server {
         boolean realizandoPedido = false;
         boolean primeiraInteracao = true;
         boolean excluindoItem = false;
+        boolean finalizandoPedido = false;
         Cardapio cardapio = new Cardapio();
         Carrinho carrinho = new Carrinho();
 
@@ -54,13 +56,13 @@ public class Server {
             }
 
             if (textoRecebido.equals("1") && !realizandoPedido && !excluindoItem) {
-                Conexao.enviar(socketClient, cardapio.getCardapio(cardapio));
+                Conexao.enviar(socketClient, cardapio.getCardapio());
             }
 
-            if(textoRecebido.equals("2") || realizandoPedido || textoRecebido.equals("s")){
+            if(textoRecebido.equals("2") || realizandoPedido || textoRecebido.equals("s") && !finalizandoPedido){
                 if(realizandoPedido) {
                     itens = textoRecebido.split("-");
-                    Conexao.enviar(socketClient, carrinho.adicionaAlimento(itens, cardapio));
+                    Conexao.enviar(socketClient, carrinho.adicionaItens(itens, cardapio));
                     realizandoPedido = false;
                 }else{
                     Conexao.enviar(socketClient, "O pedido deve ser feito dessa forma: 1-2-3");
@@ -75,11 +77,24 @@ public class Server {
             if(textoRecebido.equals("4") && !realizandoPedido || excluindoItem){
                 if(excluindoItem){
                     itens = textoRecebido.split("-");
-                    Conexao.enviar(socketClient, carrinho.excluirItens(itens, carrinho));
+                    Conexao.enviar(socketClient, carrinho.excluirItens(itens));
                     excluindoItem = false;
                 }else{
                     Conexao.enviar(socketClient, "Remover um item deve ser dessa forma: 1-2-3");
                     excluindoItem = true;
+                }
+            }
+
+            if(textoRecebido.equals("5") && !realizandoPedido && !excluindoItem || textoRecebido.equals("s") && finalizandoPedido){
+                if(finalizandoPedido){
+                    TimeUnit.SECONDS.sleep(20);
+                    Conexao.enviar(socketClient,"Pedido finalizado e pronto para ser retirado!");
+                    carrinho.excluiCarrinho();
+                    finalizandoPedido = false;
+                    primeiraInteracao = true;
+                }else{
+                    Conexao.enviar(socketClient, "Podemos preparar seu pedido? s ou n" + carrinho.getCarrinho());
+                    finalizandoPedido = true;
                 }
             }
 

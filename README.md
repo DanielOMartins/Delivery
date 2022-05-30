@@ -21,7 +21,7 @@ danielomartins.16@gmail.com
 <h2>Como usar</h2>
 
 - Abra 2 terminais diferentes
-- Em um dos terminais mudar para a pasta "src" e executar o comando "javac *.java" para compilar os arquivos java  
+- Nos dois terminais mudar para a pasta "src" e executar o comando "javac *.java" para compilar os arquivos java  
 ![alt text](https://github.com/DanielOMartins/Delivery/blob/main/img/Compilar.png)
 - Então escolha um terminal para ser o Servidor e execute o comando java Server  
 ![alt text](https://github.com/DanielOMartins/Delivery/blob/main/img/StartServer.png)

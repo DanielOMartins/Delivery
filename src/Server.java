@@ -50,6 +50,10 @@ public class Server {
             textoRecebido = textoRecebido.toLowerCase();
             System.out.println("Cliente enviou: " + textoRecebido);
 
+            if(textoRecebido.equals("n")){
+                finalizandoPedido = false;
+            }
+
             if( textoRecebido.equals("menu") || textoRecebido.equals("n") || primeiraInteracao) {
                 primeiraInteracao = false;
                 Conexao.enviar(socketClient, menu);

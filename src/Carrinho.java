@@ -24,9 +24,10 @@ public class Carrinho {
         totalCarrinho = 0;
     }
 
-    public String adicionaItens(String[] itens, Cardapio cardapio){
+    public String adicionaItens(String [] itens, Cardapio cardapio){
         int id;
         boolean existeNoCardapio;
+
         for (String s: itens) {
             id = Integer.parseInt(s);
             existeNoCardapio = false;
@@ -48,6 +49,7 @@ public class Carrinho {
         int id;
         boolean existeNoCarrinho;
         Iterator<Alimento> it;
+
         for (String s: itens) {
             id = Integer.parseInt(s);
             existeNoCarrinho = false;

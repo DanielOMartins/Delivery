@@ -16,6 +16,7 @@ public class Cardapio {
         alimentos.add(new Alimento(7, "Sorvete", 4.00));
         alimentos.add(new Alimento(8, "Torta de maça", 3.00));
         alimentos.add(new Alimento(9, "Mc Flury", 7.00));
+        alimentos.add(new Alimento(10, "Patrick", 10.00));
     }
 
     public List<Alimento> getAlimentos() {

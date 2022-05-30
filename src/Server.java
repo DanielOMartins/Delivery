@@ -50,12 +50,9 @@ public class Server {
             textoRecebido = textoRecebido.toLowerCase();
             System.out.println("Cliente enviou: " + textoRecebido);
 
-            if(textoRecebido.equals("n")){
-                finalizandoPedido = false;
-            }
-
             if( textoRecebido.equals("menu") || textoRecebido.equals("n") || primeiraInteracao) {
                 primeiraInteracao = false;
+                finalizandoPedido = false;
                 Conexao.enviar(socketClient, menu);
             }
 
@@ -63,7 +60,7 @@ public class Server {
                 Conexao.enviar(socketClient, cardapio.getCardapio());
             }
 
-            if(textoRecebido.equals("2") || realizandoPedido || textoRecebido.equals("s") && !finalizandoPedido){
+            if(textoRecebido.equals("2") && !excluindoItem || realizandoPedido || textoRecebido.equals("s") && !finalizandoPedido){
                 if(realizandoPedido) {
                     itens = textoRecebido.split("-");
                     Conexao.enviar(socketClient, carrinho.adicionaItens(itens, cardapio));
@@ -74,7 +71,7 @@ public class Server {
                 }
             }
 
-            if(textoRecebido.equals("3") && !realizandoPedido){
+            if(textoRecebido.equals("3") && !realizandoPedido && !excluindoItem){
                 Conexao.enviar(socketClient, carrinho.getCarrinho());
             }
             

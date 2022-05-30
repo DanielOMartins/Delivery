@@ -12,7 +12,7 @@ public class Conexao {
         if (bytesLidos > 0) {
             return tratamentoMensagem(infoBytes);
         } else {
-            return "Mensagem não identificada";
+            return "Mensagem vazia";
         }
     }
 
@@ -30,7 +30,6 @@ public class Conexao {
             }
             builder.append(mensagem.charAt(i));
         }
-        //builder.append("\nvoltar");
         return builder.toString();
     }
 }

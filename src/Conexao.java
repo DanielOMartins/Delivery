@@ -21,15 +21,17 @@ public class Conexao {
         out.write(textoRequisicao.getBytes());
     }
 
+    //Realiza o tratamento da mensagem recebida em info bytes
     public static String tratamentoMensagem (byte[] infoBytes){
-        String mensagem = new String(infoBytes);
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < mensagem.length(); i++) {
-            if (mensagem.charAt(i) == 0) {
+        String mensagem = new String(infoBytes); //Transforma o infoBytes em uma string
+        StringBuilder builder = new StringBuilder();//Um string builder para concatenar a mensagem
+        for (int i = 0; i < mensagem.length(); i++) { //For para percorrer cada char da mensagem
+            if (mensagem.charAt(i) == 0) { //Verifico se aquela posição é um null e se for a mensagem é tudo que vem antes
                 break;
             }
-            builder.append(mensagem.charAt(i));
+            builder.append(mensagem.charAt(i));//Concatena todas as letras novamente na mensagem no string builder
         }
-        return builder.toString();
+        
+        return builder.toString();//Retorna o String builder em formato de string
     }
 }

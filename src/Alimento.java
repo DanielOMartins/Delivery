@@ -1,13 +1,14 @@
 import java.text.DecimalFormat;
 
-public class Alimento {
+public class Alimento { //É o modelo de cada alimento
     private int id;
     private String nome;
     private double preco;
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    public Alimento(int id, String nome, double preco){
+    //Diz que sempre que um alimento for instaciado precisa passar as caracteristicas dele
+    public Alimento(int id, String nome, double preco){ 
         this.nome = nome;
         this.id = id;
         this.preco = preco;
@@ -25,7 +26,7 @@ public class Alimento {
         return this.preco;
     }
 
-    public String getAlimento() {
+    public String getAlimento() { //Retorna o alimento com id, nome e preço formatados
         return this.id + " - " + this.nome + ": R$" + df.format(this.preco);
     }
 }

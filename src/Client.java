@@ -7,7 +7,7 @@ public class Client {
     public void comunicarComServidor() throws Exception {
         String textoRequisicao = "";
         String textoRecebido = "";
-        boolean pedidoFinalizado = false;
+        boolean pedidoFinalizado = false; //Status para caso o cliente seja finalizado
 
         do {
             socket = new Socket("localhost", 9600);
@@ -24,9 +24,10 @@ public class Client {
 
             System.out.println("Restaurante enviou: " + textoRecebido);
 
+            //Aqui verifica se o pedido já pode ser finalizado
             if(textoRecebido.equals("Pedido finalizado e pronto para ser retirado!"))
                 pedidoFinalizado = true;
-        }while(!pedidoFinalizado);
+        }while(!pedidoFinalizado); //O cliente fica ativo enquanto o pedido não for finalizado (true)
     }
 
 
